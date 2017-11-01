@@ -570,7 +570,6 @@
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    nil nil nil
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
@@ -1560,8 +1559,7 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    nil nil
-    (int_plus_int_is_int application-judgement "int" integers nil) nil
+    (int_plus_int_is_int application-judgement "int" integers nil)
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -1581,12 +1579,12 @@
     (insert? const-decl "finseq" seq_extras "structures/")
     (upto nonempty-type-eq-decl nil nat_types nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil) nil
+    (OR const-decl "[bool, bool -> bool]" booleans nil)
     (finseq type-eq-decl nil finite_sequences nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    nil (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -1919,14 +1917,12 @@
     nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    nil
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    nil nil
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
@@ -2301,7 +2297,7 @@
     nil)
    ((nat_min application-judgement "{k: nat | k <= i AND k <= j}"
      real_defs nil)
-    nil (psorted const-decl "bool" sorting_seq nil)
+    (psorted const-decl "bool" sorting_seq nil)
     (insert? const-decl "finseq" seq_extras "structures/")
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
@@ -2320,7 +2316,7 @@
      "(strict_total_order?[real])" real_props nil)
     (int_min application-judgement "{k: int | k <= i AND k <= j}"
      real_defs nil)
-    (<= const-decl "bool" reals nil) nil nil
+    (<= const-decl "bool" reals nil)
     (delete const-decl "finseq" seq_extras "structures/")
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
@@ -2431,47 +2427,103 @@
    shostak))
  (binsertion_sorts 0
   (binsertion_sorts-2 nil 3716507867
-   ("" (skeep) (("" (postpone) nil nil)) nil)
-   ((binsertionsort const-decl
-     "{w: finite_sequence[nat] | length(w) = length(v)}" binsertionsort
-     nil)
-    (bs_aux_sorts formula-decl nil binsertionsort nil)
-    (posint_plus_nnint_is_posint application-judgement "posint"
-     integers nil)
-    (real_ge_is_total_order name-judgement "(total_order?[real])"
+   ("" (skeep)
+    (("" (expand "binsertionsort")
+      (("" (prop)
+        (("1" (expand "sorted")
+          (("1" (expand "psorted") (("1" (assert) nil nil)) nil)) nil)
+         ("2" (lemma "bs_aux_sorts")
+          (("2" (inst?)
+            (("2" (assert)
+              (("2" (expand "binsertionsort_aux")
+                (("2" (expand "finseq_appl")
+                  (("2" (prop)
+                    (("1" (assert)
+                      (("1" (expand "sorted")
+                        (("1" (expand "psorted")
+                          (("1" (expand "finseq_appl")
+                            (("1" (assert)
+                              (("1"
+                                (prop)
+                                (("1"
+                                  (assert)
+                                  (("1"
+                                    (skeep)
+                                    (("1"
+                                      (skeep)
+                                      (("1"
+                                        (assert)
+                                        (("1"
+                                          (expand "^")
+                                          (("1" (assert) nil nil))
+                                          nil))
+                                        nil))
+                                      nil))
+                                    nil))
+                                  nil))
+                                nil))
+                              nil))
+                            nil))
+                          nil))
+                        nil))
+                      nil)
+                     ("2" (expand "^")
+                      (("2" (assert)
+                        (("2" (expand "sorted")
+                          (("2" (expand "psorted")
+                            (("2" (propax) nil nil)) nil))
+                          nil))
+                        nil))
+                      nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil))
+          nil))
+        nil))
+      nil))
+    nil)
+   ((psorted const-decl "bool" sorting_seq nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
+    (sorted const-decl "bool" sorting_seq nil)
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (int_min application-judgement "{k: int | k <= i AND k <= j}"
-     real_defs nil)
-    (odd_minus_odd_is_even application-judgement "even_int" integers
-     nil)
-    (empty_seq const-decl "finseq" finite_sequences nil)
-    (min const-decl "{p: real | p <= m AND p <= n}" real_defs nil)
-    (^ const-decl "finseq" finite_sequences nil)
-    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
-     nil)
-    (> const-decl "bool" reals nil) (< const-decl "bool" reals nil)
-    (finite_sequence type-eq-decl nil finite_sequences nil)
-    (>= const-decl "bool" reals nil)
-    (bool nonempty-type-eq-decl nil booleans nil)
-    (int nonempty-type-eq-decl nil integers nil)
-    (integer_pred const-decl "[rational -> boolean]" integers nil)
-    (rational nonempty-type-from-decl nil rationals nil)
-    (rational_pred const-decl "[real -> boolean]" rationals nil)
-    (real nonempty-type-from-decl nil reals nil)
-    (real_pred const-decl "[number_field -> boolean]" reals nil)
-    (number_field nonempty-type-from-decl nil number_fields nil)
+    (nat nonempty-type-eq-decl nil naturalnumbers nil)
+    (below type-eq-decl nil nat_types nil)
+    (number nonempty-type-decl nil numbers nil)
+    (boolean nonempty-type-decl nil booleans nil)
     (number_field_pred const-decl "[number -> boolean]" number_fields
      nil)
-    (boolean nonempty-type-decl nil booleans nil)
-    (number nonempty-type-decl nil numbers nil)
-    (below type-eq-decl nil nat_types nil)
-    (nat nonempty-type-eq-decl nil naturalnumbers nil)
-    (sorted const-decl "bool" sorting_seq nil)
-    (psorted const-decl "bool" sorting_seq nil)
-    (real_le_is_total_order name-judgement "(total_order?[real])"
-     real_props nil))
+    (number_field nonempty-type-from-decl nil number_fields nil)
+    (real_pred const-decl "[number_field -> boolean]" reals nil)
+    (real nonempty-type-from-decl nil reals nil)
+    (rational_pred const-decl "[real -> boolean]" rationals nil)
+    (rational nonempty-type-from-decl nil rationals nil)
+    (integer_pred const-decl "[rational -> boolean]" integers nil)
+    (int nonempty-type-eq-decl nil integers nil)
+    (bool nonempty-type-eq-decl nil booleans nil)
+    (>= const-decl "bool" reals nil)
+    (finite_sequence type-eq-decl nil finite_sequences nil)
+    (< const-decl "bool" reals nil) (> const-decl "bool" reals nil)
+    (binsertionsort_aux def-decl
+     "{w: finite_sequence[nat] | length(w) = length(v)}" binsertionsort
+     nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil)
+    (nat_min application-judgement "{k: nat | k <= i AND k <= j}"
+     real_defs nil)
+    (^ const-decl "finseq" finite_sequences nil)
+    (int_minus_int_is_int application-judgement "int" integers nil)
+    (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
+     nil)
+    (odd_minus_odd_is_even application-judgement "even_int" integers
+     nil)
+    (bs_aux_sorts formula-decl nil binsertionsort nil)
+    (binsertionsort const-decl
+     "{w: finite_sequence[nat] | length(w) = length(v)}" binsertionsort
+     nil))
    nil)
   (binsertion_sorts-1 nil 3716415298
    ("" (skeep)
