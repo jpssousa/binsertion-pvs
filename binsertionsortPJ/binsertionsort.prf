@@ -570,10 +570,7 @@
     (/= const-decl "boolean" notequal nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
-    (v skolem-const-decl "finite_sequence[nat]" binsertionsort nil)
-    (x!1 skolem-const-decl "below[length(v)]" binsertionsort nil)
-    (x!2 skolem-const-decl "{j: below[length(v)] | x!1 <= j}"
-     binsertionsort nil)
+    nil nil nil
     (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
@@ -1563,13 +1560,8 @@
      integers nil)
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
-    (x!1 skolem-const-decl "below[length(v)]" binsertionsort nil)
-    (x!2 skolem-const-decl "{j: below[length(v)] | x!1 <= j}"
-     binsertionsort nil)
-    (int_plus_int_is_int application-judgement "int" integers nil)
-    (k_1 skolem-const-decl
-     "below[length(insert?(k, v, bin_search(v)(k)(x!1, x!2)))]"
-     binsertionsort nil)
+    nil nil
+    (int_plus_int_is_int application-judgement "int" integers nil) nil
     (nonneg_floor_is_nat application-judgement "nat" floor_ceil nil)
     (nnrat_div_posrat_is_nnrat application-judgement "nonneg_rat"
      rationals nil)
@@ -1589,14 +1581,12 @@
     (insert? const-decl "finseq" seq_extras "structures/")
     (upto nonempty-type-eq-decl nil nat_types nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
-    (OR const-decl "[bool, bool -> bool]" booleans nil)
-    (k skolem-const-decl "nat" binsertionsort nil)
+    (OR const-decl "[bool, bool -> bool]" booleans nil) nil
     (finseq type-eq-decl nil finite_sequences nil)
     (finseq_appl const-decl "[below[length(fs)] -> T]" finite_sequences
      nil)
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
-    (v skolem-const-decl "finite_sequence[nat]" binsertionsort nil)
-    (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
+    nil (IMPLIES const-decl "[bool, bool -> bool]" booleans nil)
     (AND const-decl "[bool, bool -> bool]" booleans nil)
     (NOT const-decl "[bool -> bool]" booleans nil)
     (= const-decl "[T, T -> boolean]" equalities nil)
@@ -1929,15 +1919,14 @@
     nil)
    ((real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
-    (x!1 skolem-const-decl "{v | length(v) >= 2}" binsertionsort nil)
+    nil
     (nnint_plus_nnint_is_nnint application-judgement "nonneg_int"
      integers nil)
     (real_le_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
     (posint_plus_nnint_is_posint application-judgement "posint"
      integers nil)
-    (x!3 skolem-const-decl "upto[x!2]" binsertionsort nil)
-    (x!2 skolem-const-decl "below[length(x!1) - 1]" binsertionsort nil)
+    nil nil
     (/ const-decl "[numfield, nznum -> numfield]" number_fields nil)
     (nznum nonempty-type-eq-decl nil number_fields nil)
     (/= const-decl "boolean" notequal nil)
@@ -1998,7 +1987,26 @@
  (bs_aux_perm 0
   (bs_aux_perm-1 nil 3716408602
    ("" (measure-induct+ "length(v)-j" ("v" "j"))
-    (("" (postpone) nil nil)) nil)
+    (("" (expand "binsertionsort_aux" 1)
+      (("" (lift-if)
+        (("" (prop)
+          (("1" (expand "permutations" 1) (("1" (propax) nil nil)) nil)
+           ("2" (expand "finseq_appl")
+            (("2" (hide -2)
+              (("2" (lemma "delete_insert_same_permutes")
+                (("2" (expand "finseq_appl" -1)
+                  (("2" (inst?)
+                    (("1" (assert) nil nil) ("2" (assert) nil nil))
+                    nil))
+                  nil))
+                nil))
+              nil))
+            nil)
+           ("3" (postpone) nil nil))
+          nil))
+        nil))
+      nil))
+    nil)
    ((delete_insert_same_permutes formula-decl nil sorting_seq nil)
     (> const-decl "bool" reals nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
@@ -2293,12 +2301,7 @@
     nil)
    ((nat_min application-judgement "{k: nat | k <= i AND k <= j}"
      real_defs nil)
-    (k skolem-const-decl "below
-    [length
-       (insert?(x!1`seq(x!2), delete(x!1, x!2),
-                bin_search(x!1)(x!1`seq(x!2))(0, x!2 - 1))
-         ^ (0, x!2))]" binsertionsort nil)
-    (psorted const-decl "bool" sorting_seq nil)
+    nil (psorted const-decl "bool" sorting_seq nil)
     (insert? const-decl "finseq" seq_extras "structures/")
     (+ const-decl "[numfield, numfield -> numfield]" number_fields nil)
     (bin_search def-decl "upto[j + 1]" binsertionsort nil)
@@ -2317,10 +2320,7 @@
      "(strict_total_order?[real])" real_props nil)
     (int_min application-judgement "{k: int | k <= i AND k <= j}"
      real_defs nil)
-    (<= const-decl "bool" reals nil)
-    (x!2 skolem-const-decl "{j: below[length(x!1)] | j > 0}"
-     binsertionsort nil)
-    (x!1 skolem-const-decl "{v | length(v) >= 2}" binsertionsort nil)
+    (<= const-decl "bool" reals nil) nil nil
     (delete const-decl "finseq" seq_extras "structures/")
     (real_ge_is_total_order name-judgement "(total_order?[real])"
      real_props nil)
